@@ -42,6 +42,30 @@ definitions:
                 type: array
                 items:
                     $ref: "#/definitions/variants"
+    variants:
+        type: object
+        required:
+            - sku
+        properties:
+            id:
+                type: integer
+                format: int64
+                readOnly: true
+            product_id:
+                type: integer
+                format: int64
+                readOnly: true
+            sku:
+                type: string
+                minLength: 1
+            option1:
+                type: string
+            option2:
+                type: string
+            option3:
+                type: string
+            barcode:
+                type: string
 
 paths:
     /products:
@@ -60,4 +84,4 @@ paths:
                     schema:
                         type: array
                         items:
-                            $ref: "#/definitions/products"
+                            $ref: "#/definitions/product"
