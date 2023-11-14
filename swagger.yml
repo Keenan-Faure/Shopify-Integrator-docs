@@ -10,15 +10,27 @@ produces:
 
 schemes:
     - http
+
 swagger: "2.0"
 
+securityDefinitions:
+    api_key:
+        type: apiKey
+        name: ApiKey
+        in: header
+
 definitions:
+    error:
+        type: object
+        properties:
+            error:
+                type: string
     product:
         type: object
         required:
             - product_code
             - title
-            - variants
+            - variant
         properties:
             id:
                 type: integer
@@ -38,11 +50,11 @@ definitions:
                 type: string
             product_type:
                 type: string
-            variants:
+            variant:
                 type: array
                 items:
-                    $ref: "#/definitions/variants"
-    variants:
+                    $ref: "#/definitions/variant"
+    variant:
         type: object
         required:
             - sku
@@ -66,22 +78,943 @@ definitions:
                 type: string
             barcode:
                 type: string
+    order:
+        type: object
+        required:
+            - id
+            - name
+            - number
+        properties:
+            id:
+                type: integer
+                format: int64
+            admin_graphql_api_id:
+                type: string
+            app_id:
+                type: integer
+                format: int32
+            browser_ip:
+                type: string
+            buyer_accepts_marketing:
+                type: boolean
+            cancel_reason:
+                type: string
+                format: "null"
+            cancelled_at:
+                type: string
+                format: "null"
+            cart_token:
+                type: string
+                format: "null"
+            checkout_id:
+                type: integer
+                format: int64
+            checkout_token:
+                type: string
+            client_details:
+                type: object
+                properties:
+                    accept_language:
+                        type: string
+                        format: "null"
+                    browser_height:
+                        type: string
+                        format: "null"
+                    browser_ip:
+                        type: string
+                    browser_width:
+                        type: string
+                        format: "null"
+                    session_hash:
+                        type: string
+                        format: "null"
+                    user_agent:
+                        type: string
+            closed_at:
+                type: string
+                format: "null"
+            company:
+                type: string
+                format: "null"
+            confirmed:
+                type: boolean
+            contact_email:
+                type: string
+            created_at:
+                type: string
+                format: date-time
+            currency:
+                type: string
+            current_subtotal_price:
+                type: string
+            current_subtotal_price_set:
+                type: object
+                properties:
+                    shop_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+                    presentment_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+            current_total_discounts:
+                type: string
+            current_total_discounts_set:
+                type: object
+                properties:
+                    shop_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+                    presentment_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+            current_total_duties_set:
+                type: string
+                format: "null"
+            current_total_price:
+                type: string
+            current_total_price_set:
+                type: object
+                properties:
+                    shop_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+                    presentment_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+            current_total_tax:
+                type: string
+            current_total_tax_set:
+                type: object
+                properties:
+                    shop_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+                    presentment_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+            customer_locale:
+                type: string
+            device_id:
+                type: string
+                format: "null"
+            discount_codes:
+                type: array
+                items:
+                    type: object
+            email:
+                type: string
+            estimated_taxes:
+                type: boolean
+            financial_status:
+                type: string
+            fulfillment_status:
+                type: string
+                format: "null"
+            gateway:
+                type: string
+            landing_site:
+                type: string
+                format: "null"
+            landing_site_ref:
+                type: string
+                format: "null"
+            location_id:
+                type: integer
+                format: int64
+            merchant_of_record_app_id:
+                type: string
+                format: "null"
+            name:
+                type: string
+            note:
+                type: string
+            note_attributes:
+                type: array
+                items:
+                    type: object
+            number:
+                type: integer
+                format: int32
+            order_number:
+                type: integer
+                format: int32
+            order_status_url:
+                type: string
+            original_total_duties_set:
+                type: string
+                format: "null"
+            payment_gateway_names:
+                type: array
+                items:
+                    type: object
+                    properties:
+                        0:
+                            type: string
+                        1:
+                            type: string
+                        2:
+                            type: string
+                        3:
+                            type: string
+                        4:
+                            type: string
+                        5:
+                            type: string
+            phone:
+                type: string
+            presentment_currency:
+                type: string
+            processed_at:
+                type: string
+                format: date-time
+            processing_method:
+                type: string
+            reference:
+                type: string
+            referring_site:
+                type: string
+                format: "null"
+            source_identifier:
+                type: string
+            source_name:
+                type: string
+            source_url:
+                type: string
+                format: "null"
+            subtotal_price:
+                type: string
+            subtotal_price_set:
+                type: object
+                properties:
+                    shop_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+                    presentment_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+            tags:
+                type: string
+            tax_lines:
+                type: array
+                items:
+                    type: object
+                    properties:
+                        price:
+                            type: string
+                        rate:
+                            type: number
+                        title:
+                            type: string
+                        price_set:
+                            type: object
+                            properties:
+                                shop_money:
+                                    type: object
+                                    properties:
+                                        amount:
+                                            type: string
+                                        currency_code:
+                                            type: string
+                                presentment_money:
+                                    type: object
+                                    properties:
+                                        amount:
+                                            type: string
+                                        currency_code:
+                                            type: string
+                        channel_liable:
+                            type: boolean
+            taxes_included:
+                type: boolean
+            test:
+                type: boolean
+            token:
+                type: string
+            total_discounts:
+                type: string
+            total_discounts_set:
+                type: object
+                properties:
+                    shop_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+                            presentment_money:
+                                type: object
+                                properties:
+                                    amount:
+                                        type: string
+                                    currency_code:
+                                        type: string
+            total_line_items_price:
+                type: string
+            total_line_items_price_set:
+                type: object
+                properties:
+                    shop_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+                            presentment_money:
+                                type: object
+                                properties:
+                                    amount:
+                                        type: string
+                                    currency_code:
+                                        type: string
+            total_outstanding:
+                type: string
+            total_price:
+                type: string
+            total_price_set:
+                type: object
+                properties:
+                    shop_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+                            presentment_money:
+                                type: object
+                                properties:
+                                    amount:
+                                        type: string
+                                    currency_code:
+                                        type: string
+            total_shipping_price_set:
+                type: object
+                properties:
+                    shop_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+                            presentment_money:
+                                type: object
+                                properties:
+                                    amount:
+                                        type: string
+                                    currency_code:
+                                        type: string
+            total_tax:
+                type: string
+            total_tax_set:
+                type: object
+                properties:
+                    shop_money:
+                        type: object
+                        properties:
+                            amount:
+                                type: string
+                            currency_code:
+                                type: string
+                            presentment_money:
+                                type: object
+                                properties:
+                                    amount:
+                                        type: string
+                                    currency_code:
+                                        type: string
+            total_tip_received:
+                type: string
+            total_weight:
+                type: integer
+                format: int32
+            updated_at:
+                type: string
+                format: date-time
+            user_id:
+                type: integer
+                format: int64
+            billing_address:
+                type: object
+                properties:
+                    first_name:
+                        type: string
+                    address1:
+                        type: string
+                    phone:
+                        type: string
+                        format: "null"
+                    city:
+                        type: string
+                    zip:
+                        type: string
+                    province:
+                        type: string
+                    country:
+                        type: string
+                    last_name:
+                        type: string
+                    address2:
+                        type: string
+                    company:
+                        type: string
+                    latitude:
+                        type: string
+                        format: "null"
+                    longitude:
+                        type: string
+                        format: "null"
+                    name:
+                        type: string
+                    country_code:
+                        type: string
+                    province_code:
+                        type: string
+            customer:
+                type: object
+                properties:
+                    id:
+                        type: integer
+                        format: int64
+                    email:
+                        type: string
+                    accepts_marketing:
+                        type: boolean
+                    created_at:
+                        type: string
+                        format: date-time
+                    updated_at:
+                        type: string
+                        format: date-time
+                    first_name:
+                        type: string
+                    last_name:
+                        type: string
+                    state:
+                        type: string
+                    note:
+                        type: string
+                        format: "null"
+                    verified_email:
+                        type: boolean
+                    multipass_identifier:
+                        type: string
+                        format: "null"
+                    tax_exempt:
+                        type: boolean
+                    tags:
+                        type: string
+                    currency:
+                        type: string
+                    phone:
+                        type: string
+                    accepts_marketing_updated_at:
+                        type: string
+                        format: date-time
+                    marketing_opt_in_level:
+                        type: string
+                        format: "null"
+                    tax_exemptions:
+                        type: array
+                        items:
+                            type: object
+                    email_marketing_consent:
+                        type: object
+                        properties:
+                            state:
+                                type: string
+                            opt_in_level:
+                                type: string
+                            consent_updated_at:
+                                type: string
+                                format: "null"
+                    sms_marketing_consent:
+                        type: object
+                        properties:
+                            state:
+                                type: string
+                            opt_in_level:
+                                type: string
+                            consent_updated_at:
+                                type: string
+                                format: "null"
+                            consent_collected_from:
+                                type: string
+                    admin_graphql_api_id:
+                        type: string
+                    default_address:
+                        type: object
+                        properties:
+                            id:
+                                type: integer
+                                format: int64
+                            customer_id:
+                                type: integer
+                                format: int64
+                            first_name:
+                                type: string
+                            last_name:
+                                type: string
+                            company:
+                                type: string
+                            address1:
+                                type: string
+                            address2:
+                                type: string
+                            city:
+                                type: string
+                            province:
+                                type: string
+                            country:
+                                type: string
+                            zip:
+                                type: string
+                            phone:
+                                type: string
+                            name:
+                                type: string
+                            province_code:
+                                type: string
+                            country_code:
+                                type: string
+                            country_name:
+                                type: string
+                            default:
+                                type: boolean
+            discount_applications:
+                type: array
+                items:
+                    type: object
+            fulfillments:
+                type: array
+                items:
+                    type: object
+            line_items:
+                type: array
+                items:
+                    type: object
+                    properties:
+                        id:
+                            type: integer
+                            format: int64
+                        admin_graphql_api_id:
+                            type: string
+                        fulfillable_quantity:
+                            type: integer
+                            format: int32
+                        fulfillment_service:
+                            type: string
+                        fulfillment_status:
+                            type: string
+                            format: "null"
+                        gift_card:
+                            type: boolean
+                        grams:
+                            type: integer
+                            format: int32
+                        name:
+                            type: string
+                        price:
+                            type: string
+                        price_set:
+                            type: object
+                            properties:
+                                shop_money:
+                                    type: object
+                                    properties:
+                                        amount:
+                                            type: string
+                                        currency_code:
+                                            type: string
+                                        presentment_money:
+                                            type: object
+                                            properties:
+                                                amount:
+                                                    type: string
+                                                currency_code:
+                                                    type: string
+                        product_exists:
+                            type: boolean
+                        product_id:
+                            type: integer
+                            format: int64
+                        properties:
+                            type: array
+                            items:
+                                type: object
+                        quantity:
+                            type: integer
+                            format: int32
+                        requires_shipping:
+                            type: boolean
+                        sku:
+                            type: string
+                        taxable:
+                            type: boolean
+                        title:
+                            type: string
+                        total_discount:
+                            type: string
+                        total_discount_set:
+                            type: object
+                            properties:
+                                shop_money:
+                                    type: object
+                                    properties:
+                                        amount:
+                                            type: string
+                                        currency_code:
+                                            type: string
+                                presentment_money:
+                                    type: object
+                                    properties:
+                                        amount:
+                                            type: string
+                                        currency_code:
+                                            type: string
+                        variant_id:
+                            type: integer
+                            format: int64
+                        variant_inventory_management:
+                            type: string
+                        variant_title:
+                            type: string
+                        vendor:
+                            type: string
+                        tax_lines:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    channel_liable:
+                                        type: boolean
+                                    price:
+                                        type: string
+                                    price_set:
+                                        type: object
+                                        properties:
+                                            shop_money:
+                                                type: object
+                                                properties:
+                                                    amount:
+                                                        type: string
+                                                    currency_code:
+                                                        type: string
+                                            presentment_money:
+                                                type: object
+                                                properties:
+                                                    amount:
+                                                        type: string
+                                                    currency_code:
+                                                        type: string
+                                    rate:
+                                        type: number
+                                    title:
+                                        type: string
+                        duties:
+                            type: array
+                            items:
+                                type: object
+                        discount_allocations:
+                            type: array
+                            items:
+                                type: object
+            payment_terms:
+                type: string
+                format: "null"
+            refunds:
+                type: array
+                items:
+                    type: object
+            shipping_address:
+                type: object
+                properties:
+                    first_name:
+                        type: string
+                    address1:
+                        type: string
+                    phone:
+                        type: string
+                        format: "null"
+                    city:
+                        type: string
+                    zip:
+                        type: string
+                    province:
+                        type: string
+                    country:
+                        type: string
+                    last_name:
+                        type: string
+                    address2:
+                        type: string
+                    company:
+                        type: string
+                    latitude:
+                        type: number
+                    longitude:
+                        type: number
+                    name:
+                        type: string
+                    country_code:
+                        type: string
+                    province_code:
+                        type: string
+            shipping_lines:
+                type: array
+                items:
+                    type: object
+                properties:
+                    id:
+                        type: integer
+                        format: int64
+                    carrier_identifier:
+                        type: string
+                    code:
+                        type: string
+                    delivery_category:
+                        type: string
+                        format: "null"
+                    discounted_price:
+                        type: string
+                    discounted_price_set:
+                        type: object
+                        properties:
+                            shop_money:
+                                type: object
+                                properties:
+                                    amount:
+                                        type: string
+                                    currency_code:
+                                        type: string
+                                    presentment_money:
+                                        type: object
+                                        properties:
+                                            amount:
+                                                type: string
+                                            currency_code:
+                                                type: string
+                    phone:
+                        type: string
+                        format: "null"
+                    price:
+                        type: string
+                    price_set:
+                        type: object
+                        properties:
+                            shop_money:
+                                type: object
+                                properties:
+                                    amount:
+                                        type: string
+                                    currency_code:
+                                        type: string
+                            presentment_money:
+                                type: object
+                                properties:
+                                    amount:
+                                        type: string
+                                    currency_code:
+                                        type: string
+                    requested_fulfillment_service_id:
+                        type: string
+                        format: "null"
+                    source:
+                        type: string
+                    title:
+                        type: string
+                    tax_lines:
+                        type: array
+                        items:
+                            type: object
+                    items:
+                        type: object
+                        properties:
+                            discount_allocations:
+                                type: array
+                                items:
+                                    type: object
 
 paths:
     /products:
         get:
+            description: Returns a list of products (uses pagination)
+            summary: Return 10 products
             produces:
                 - application/json
             parameters:
                 - name: page
                   in: query
+                  description: Page number
+                  required: false
                   type: integer
                   format: int32
                   default: 1
             responses:
                 200:
-                    description: lists products
+                    description: Successfully returns an array of products
                     schema:
                         type: array
                         items:
                             $ref: "#/definitions/product"
+                500:
+                    description: Database error
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /products/{id}:
+        get:
+            description: Returns the specific product's data based on an ID
+            summary: Find product by ID
+            produces:
+                - application/json
+            parameters:
+                - name: id
+                  in: path
+                  description: ID of product
+                  required: true
+                  type: string
+            responses:
+                200:
+                    description: Successfully returns the specific product data
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/product"
+                400:
+                    description: Error decoding ID in request
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/error"
+                500:
+                    description: Database error
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /products/search:
+        get:
+            description: Searches products by Title and SKU
+            summary: Find product by Title and SKU
+            produces:
+                - application/json
+            parameters:
+                - name: q
+                  in: query
+                  description: title or sku
+                  required: true
+                  type: string
+            responses:
+                200:
+                    description: Successfully returns the matched product data
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/product"
+                400:
+                    description: Error decoding query parameter in url
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/error"
+                500:
+                    description: Database error
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /products/filter:
+        get:
+            description: Filters products by Category, Product Type and Vendor
+            summary: Product Filter
+            produces:
+                - application/json
+            parameters:
+                - name: category
+                  in: query
+                  description: category of product
+                  required: true
+                  type: string
+                - name: product_type
+                  in: query
+                  description: product_type of product
+                  required: true
+                  type: string
+                - name: vendor
+                  in: query
+                  description: vendor of product
+                  required: true
+                  type: string
+                - name: page
+                  in: query
+                  description: page number
+                  required: false
+                  type: integer
+            responses:
+                200:
+                    description: Successfully returns the matched product data
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/product"
+                500:
+                    description: Database error
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/error"
+            security:
+                - api_key: []
