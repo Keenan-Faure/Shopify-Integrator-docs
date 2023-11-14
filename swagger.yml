@@ -1,0 +1,63 @@
+consumes:
+    - application/json
+
+info:
+    title: Shopify Integrator Docs
+    version: 0.1.0
+
+produces:
+    - application/json
+
+schemes:
+    - http
+swagger: "2.0"
+
+definitions:
+    product:
+        type: object
+        required:
+            - product_code
+            - title
+            - variants
+        properties:
+            id:
+                type: integer
+                format: int64
+                readOnly: true
+            product_code:
+                type: string
+                minLength: 1
+            title:
+                type: string
+                minLength: 1
+            body_html:
+                type: string
+            category:
+                type: string
+            vendor:
+                type: string
+            product_type:
+                type: string
+            variants:
+                type: array
+                items:
+                    $ref: "#/definitions/variants"
+
+paths:
+    /products:
+        get:
+            produces:
+                - application/json
+            parameters:
+                - name: page
+                  in: query
+                  type: integer
+                  format: int32
+                  default: 1
+            responses:
+                200:
+                    description: lists products
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/products"
