@@ -1,23 +1,45 @@
 consumes:
     - application/json
-
 info:
-    title: Shopify Integrator Docs
-    version: 0.1.0
+    title: Shopify Integrator - API Docs
+    description: |-
+        This is theAPI Documentation for the Shopify Integrator Application based on the OpenAPI 3.0 specification.  You can find out more about
+        Swagger at [https://swagger.io](https://swagger.io).
 
+        Some useful links:
+        - [Shopify Integrator repository](https://github.com/Keenan-Faure/Shopify-Integrator)
+        - [Go Swagger module](https://github.com/go-swagger/go-swagger)
+    version: 1.0.0
 produces:
     - application/json
-
 schemes:
     - http
-
 swagger: "2.0"
-
+basePath: /api
 securityDefinitions:
     api_key:
         type: apiKey
-        name: ApiKey
+        name: Authorization
         in: header
+tags:
+    - name: Products
+      description: 
+        Create, Update, Delete and Read product data. All endpoints require an ApiKey to be present
+        in the header of the request.
+    - name: Orders
+      description: Create, Update, Delete and Read order data. All endpoints require an ApiKey to be present
+        in the header of the request.
+    - name: Customers
+      description: Create, Update, Delete and Read customer data. All endpoints require an ApiKey to be present
+        in the header of the request.
+    - name: Settings
+      description: Create, Update, Delete and Read settings data. All endpoints require an ApiKey to be present
+        in the header of the request.
+    - name: Queue
+      description: Create, Update, Delete and Read queue item data. All endpoints require an ApiKey to be present
+        in the header of the request.
+    - name: Miscellaneous
+      description: A collection of endpoints that has no specific category, but are required as necessary.
 
 definitions:
     error:
@@ -25,60 +47,179 @@ definitions:
         properties:
             error:
                 type: string
-    product:
+
+    message:
+        type: object
+        properties:
+            message:
+                type: string
+
+    request_product:
         type: object
         required:
             - product_code
             - title
-            - variant
         properties:
-            id:
-                type: integer
-                format: int64
-                readOnly: true
-            product_code:
+            product_code: 
                 type: string
                 minLength: 1
-            title:
+            title: 
                 type: string
                 minLength: 1
-            body_html:
+            body_html: 
                 type: string
-            category:
+            category: 
                 type: string
-            vendor:
+            vendor: 
                 type: string
-            product_type:
+            product_type: 
                 type: string
-            variant:
+            variants: 
                 type: array
-                items:
-                    $ref: "#/definitions/variant"
-    variant:
+                items: 
+                    type: object
+                    required:
+                        - sku
+                    properties: 
+                        sku: 
+                            type: string
+                            minLength: 1
+                        option1: 
+                            type: string
+                        option2: 
+                            type: string
+                        option3: 
+                            type: string
+                        barcode: 
+                            type: string
+                        variant_price_tiers: 
+                            type: array
+                            items: 
+                              type: object
+                              properties: 
+                                name: 
+                                    type: string
+                                value: 
+                                    type: number
+                                    format: float
+                        variant_quantities: 
+                            type: array
+                            items: 
+                              type: object
+                              properties: 
+                                name: 
+                                    type: string
+                                value: 
+                                    type: number
+                                    format: int32
+            options: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    value: 
+                      type: string
+
+    response_product:
         type: object
-        required:
-            - sku
         properties:
-            id:
-                type: integer
-                format: int64
-                readOnly: true
-            product_id:
-                type: integer
-                format: int64
-                readOnly: true
-            sku:
+            id: 
                 type: string
-                minLength: 1
-            option1:
+            product_code: 
                 type: string
-            option2:
+            active: 
                 type: string
-            option3:
+            title: 
                 type: string
-            barcode:
+            body_html: 
                 type: string
-    order:
+            category: 
+                type: string
+            vendor: 
+                type: string
+            product_type: 
+                type: string
+            variants: 
+                type: array
+                items: 
+                    type: object
+                    properties:
+                        id: 
+                            type: string
+                        sku: 
+                            type: string
+                        option1: 
+                            type: string
+                        option2: 
+                            type: string
+                        option3: 
+                            type: string
+                        barcode: 
+                            type: string
+                        variant_price_tiers: 
+                            type: array
+                            items: 
+                                type: object
+                                properties: 
+                                    name: 
+                                        type: string
+                                    value: 
+                                        type: number
+                                        format: float
+                        variant_quantities: 
+                            type: array
+                            items: 
+                                type: object
+                                properties: 
+                                    name: 
+                                        type: string
+                                    value: 
+                                        type: number
+                                        format: int32
+                        updated_at: 
+                            type: string
+            options: 
+                type: array
+                items: 
+                    type: object
+                    properties: 
+                        value: 
+                            type: string
+                        position: 
+                            type: number
+                            format: int32
+                            minimum: 1 
+            product_images: 
+                type: array
+                items: 
+                    type: object
+            updated_at: 
+                type: string
+                format: date-time
+
+    response_product_import:
+        type: object
+        properties:
+            processed_counter: 
+                type: number
+                format: int32
+            fail_counter: 
+                type: number
+                format: int32
+            products_added: 
+                type: number
+                format: int32
+            products_updated: 
+                type: number
+                format: int32
+            variants_added: 
+                type: number
+                format: int32
+            variants_updated: 
+                type: number
+                format: int32
+
+    request_order:
         type: object
         required:
             - id
@@ -88,6 +229,7 @@ definitions:
             id:
                 type: integer
                 format: int64
+                minLength: 1
             admin_graphql_api_id:
                 type: string
             app_id:
@@ -258,6 +400,7 @@ definitions:
                 format: "null"
             name:
                 type: string
+                minLength: 1
             note:
                 type: string
             note_attributes:
@@ -267,6 +410,7 @@ definitions:
             number:
                 type: integer
                 format: int32
+                minLength: 1
             order_number:
                 type: integer
                 format: int32
@@ -279,19 +423,6 @@ definitions:
                 type: array
                 items:
                     type: object
-                    properties:
-                        0:
-                            type: string
-                        1:
-                            type: string
-                        2:
-                            type: string
-                        3:
-                            type: string
-                        4:
-                            type: string
-                        5:
-                            type: string
             phone:
                 type: string
             presentment_currency:
@@ -877,11 +1008,405 @@ definitions:
                                 items:
                                     type: object
 
+    response_order_queue:
+        type: object
+        properties:
+            queue_id: 
+                type: string
+            object:
+                type: array
+                items:
+                    $ref: "#/definitions/address"
+
+    response_order:
+        $ref: "#/definitions/order"
+
+    line_items:
+        type: object
+        required:
+            - sku
+        properties:
+            sku:
+                type: string
+                minLength: 1
+            price:
+                type: number
+                format: float
+            barcode:
+                type: string
+            qty:
+                type: integer
+                format: int32
+            tax_rate:
+                type: number
+                format: float
+            total:
+                type: number
+                format: float
+    
+    order:
+        type: object
+        properties: 
+            id: 
+                type: string
+            notes: 
+                type: string
+            web_code: 
+                type: string
+            tax_total: 
+                type: string
+            order_total: 
+                type: string
+            shipping_total: 
+                type: string
+            discount_total: 
+                type: string
+            updated_at: 
+                type: string
+            created_at: 
+                type: string
+            customer: 
+                $ref: "#/definitions/request_customer"
+            line_items: 
+                type: array
+                items: 
+                    $ref: "#/definitions/line_items"
+            shipping_lines: 
+                type: array
+                items: 
+                    $ref: "#/definitions/line_items"
+
+    request_customer:
+        type: object
+        required:
+            - first_name
+            - last_name
+            - email
+        properties:
+            first_name:
+                type: string
+                minLength: 1
+            last_name:
+                type: string
+                minLength: 1
+            email:
+                type: string
+                minLength: 1
+            phone:
+                type: string
+            address:
+                type: array
+                items:
+                    $ref: "#/definitions/address"
+
+    response_customer:
+        type: object
+        properties:
+            id: 
+                type: string
+            first_name: 
+                type: string
+            last_name: 
+                type: string
+            email: 
+                type: string
+            phone: 
+                type: string
+            shipping_address: 
+                type: array
+                items: 
+                    type: object
+                    properties: 
+                        address_type: 
+                            type: string
+                        first_name: 
+                            type: string
+                        last_name: 
+                            type: string
+                        address_1: 
+                            type: string
+                        address_2: 
+                            type: string
+                        suburb: 
+                            type: string
+                        city: 
+                            type: string
+                        province: 
+                            type: string
+                        postal_code: 
+                            type: string
+                        company: 
+                            type: string
+            updated_at: 
+                type: string
+                format: date-time
+
+    address:
+        type: object
+        properties:
+            address_type:
+                type: string
+            first_name:
+                type: string
+            last_name:
+                type: string
+            address1:
+                type: string
+            address2:
+                type: string
+            suburb:
+                type: string
+            city:
+                type: string
+            province:
+                type: string
+            postal_code:
+                type: string
+            company:
+                type: string
+
+    request_queue:
+        type: object
+        properties:
+            id:
+                type: string
+            type:
+                type: string
+            status: 
+                type: string
+            instruction: 
+                type: string
+            object: 
+                type: object
+
+    # request_queue_product:
+    #     type: object
+    #     properties: 
+    #         type: 
+    #             type: string
+    #         status: 
+    #             type: string
+    #         instruction: 
+    #             type: string
+    #         object: 
+    #             type: object
+    #             properties: 
+    #                 system_product_id: 
+    #                     type: string
+    #                 system_variant_id: 
+    #                     type: string
+    #                 shopify: 
+    #                   type: object
+    #                   properties: 
+    #                     product_id: 
+    #                         type: string
+    #                     variant_id: 
+    #                         type: string
+
+    # request_queue_order:
+    #     type: object
+    #     properties:
+    #         type:
+    #             type: string
+    #         status: 
+    #             type: string
+    #         instruction: 
+    #             type: string
+    #         object: 
+    #             type: object
+    #             $ref: "#/definitions/order"
+
+    # response_queue_product:
+    #     type: object
+    #     properties:
+    #         queue_id: 
+    #             type: string
+    #         object: 
+    #             type: object
+    #             properties: 
+    #                 type: 
+    #                     type: string
+    #                 status: 
+    #                     type: string
+    #                 instruction: 
+    #                     type: string
+    #                 object: 
+    #                   type: object
+    #                   properties: 
+    #                     shopify: 
+    #                       type: object
+    #                       properties: 
+    #                         product_id: 
+    #                             type: string
+    #                         variant_id: 
+    #                             type: string
+    #                     system_product_id: 
+    #                         type: string
+    #                     system_variant_id: 
+    #                         type: string
+
+    # response_queue_order:
+    #     type: object
+    #     properties:
+    #         id:
+    #             type: string
+    #         type:
+    #             type: string
+    #         status: 
+    #             type: string
+    #         instruction: 
+    #             type: string
+    #         object: 
+    #             type: object
+    #             $ref: "#/definitions/order"
+
+    response_queue:
+        type: object
+        properties:
+            id:
+                type: string
+            type:
+                type: string
+            status: 
+                type: string
+            instruction: 
+                type: string
+            object: 
+                type: object
+
+    response_queue_view:
+        type: object
+        properties: 
+            add_order: 
+                type: number
+                format: int32
+            add_product: 
+                type: number
+                format: int32
+            add_variant: 
+                type: number
+                format: int32
+            update_order: 
+                type: number
+                format: int32
+            update_product: 
+                type: number
+                format: int32
+            update_variant: 
+                type: number
+                format: int32
+
+    response_queue_item:
+        type: object
+        properties:
+            id: 
+                type: string
+            queue_type: 
+                type: string
+            instruction: 
+                type: string
+            status: 
+                type: string
+            object: 
+                type: object
+
+    request_setting:
+        type: array
+        items: 
+          type: object
+          properties: 
+            key: 
+                type: string
+            value: 
+                type: string
+
+    response_setting:
+        type: object
+        properties:
+            message: 
+                type: string
+
+    request_location_warehouse:
+        type: object
+        properties: 
+            location_id: 
+                type: string
+            warehouse_name: 
+                type: string
+            shopify_warehouse_name: 
+                type: string
+
+    response_location_warehouse:
+        type: object
+        properties: 
+            id: 
+                type: string
+            shopify_warehouse_name: 
+                type: string
+            shopify_location_id: 
+                type: string
+            warehouse_name: 
+                type: string
+            created_at: 
+                type: string
+            updated_at: 
+                type: string
+
+    request_preregister:
+        type: object
+        properties: 
+            name: 
+                type: string
+            email: 
+                type: string
+
+    response_preregister:
+        type: object
+        properties: 
+            message: 
+                type: string
+    
+    request_register:
+        type: object
+        properties: 
+            name: 
+                type: string
+            email: 
+                type: string
+            token: 
+                type: string
+
+    response_register:
+        type: object
+        properties: 
+            id: 
+                type: string
+            webhook_token: 
+                type: string
+            created_at: 
+                type: string
+            updated_at: 
+                type: string
+            name: 
+                type: string
+            email: 
+                type: string
+            api_key: 
+                type: string
+
+    response_login:
+        type: object
+        properties:
+            status: 
+                type: string
+
 paths:
     /products:
         get:
-            description: Returns a list of products (uses pagination)
-            summary: Return 10 products
+            description: Returns a list of products
+            summary: Products
+            tags:
+                - Products
             produces:
                 - application/json
             parameters:
@@ -894,24 +1419,58 @@ paths:
                   default: 1
             responses:
                 200:
-                    description: Successfully returns an array of products
+                    description: Status OK
                     schema:
                         type: array
                         items:
-                            $ref: "#/definitions/product"
+                            $ref: "#/definitions/response_product"
                 500:
-                    description: Database error
+                    description: Internal Server Error
                     schema:
-                        type: array
-                        items:
-                            $ref: "#/definitions/error"
+                        $ref: "#/definitions/error"
             security:
                 - api_key: []
-
+        post:
+            description: Create a product
+            summary: Products
+            tags:
+                - Products
+            produces:
+                - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: Create a product with variations
+                  schema:
+                    $ref: "#/definitions/request_product"
+                  required: true
+                    
+            responses:
+                201:
+                    description: Status Created
+                    schema:
+                        $ref: "#/definitions/response_product"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                409: 
+                    description: Status Conflict
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        
     /products/{id}:
         get:
-            description: Returns the specific product's data based on an ID
-            summary: Find product by ID
+            description: Find product by ID
+            summary: Product By ID
+            tags:
+                - Products
             produces:
                 - application/json
             parameters:
@@ -922,30 +1481,26 @@ paths:
                   type: string
             responses:
                 200:
-                    description: Successfully returns the specific product data
+                    description: Status OK
                     schema:
-                        type: array
-                        items:
-                            $ref: "#/definitions/product"
+                        $ref: "#/definitions/response_product"
                 400:
-                    description: Error decoding ID in request
+                    description: Bad Request
                     schema:
-                        type: array
-                        items:
-                            $ref: "#/definitions/error"
+                        $ref: "#/definitions/error"
                 500:
-                    description: Database error
+                    description: Internal Server Error
                     schema:
-                        type: array
-                        items:
-                            $ref: "#/definitions/error"
+                        $ref: "#/definitions/error"
             security:
                 - api_key: []
 
     /products/search:
         get:
-            description: Searches products by Title and SKU
-            summary: Find product by Title and SKU
+            description: Find product by Title and SKU
+            summary: Product Search
+            tags:
+                - Products
             produces:
                 - application/json
             parameters:
@@ -956,30 +1511,26 @@ paths:
                   type: string
             responses:
                 200:
-                    description: Successfully returns the matched product data
+                    description: Status OK
                     schema:
-                        type: array
-                        items:
-                            $ref: "#/definitions/product"
+                        $ref: "#/definitions/response_product"
                 400:
-                    description: Error decoding query parameter in url
+                    description: Bad Request
                     schema:
-                        type: array
-                        items:
-                            $ref: "#/definitions/error"
+                        $ref: "#/definitions/error"
                 500:
-                    description: Database error
+                    description: Internal Server Error
                     schema:
-                        type: array
-                        items:
-                            $ref: "#/definitions/error"
+                        $ref: "#/definitions/error"
             security:
                 - api_key: []
 
     /products/filter:
         get:
-            description: Filters products by Category, Product Type and Vendor
+            description: Product Filter by category, product type and vendor
             summary: Product Filter
+            tags:
+                - Products
             produces:
                 - application/json
             parameters:
@@ -1005,16 +1556,802 @@ paths:
                   type: integer
             responses:
                 200:
-                    description: Successfully returns the matched product data
+                    description: Status OK
                     schema:
-                        type: array
-                        items:
-                            $ref: "#/definitions/product"
+                        $ref: "#/definitions/response_product"
                 500:
-                    description: Database error
+                    description: Internal Server Error
                     schema:
-                        type: array
-                        items:
-                            $ref: "#/definitions/error"
+                        $ref: "#/definitions/error"
             security:
                 - api_key: []
+
+    /products/import:
+        post:
+            description: Bulk add products using a CSV file
+            summary: Product Import
+            tags:
+                - Products
+            produces:
+                - application/json
+            parameters:
+                - name: file_name
+                  in: query
+                  description: Name of CSV file on server
+                  required: true
+                  type: string                    
+                    
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/response_product_import"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /products/export:
+        get:
+            description: Export Product data as a CSV file
+            summary: Product Export
+            tags:
+                - Products
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/message"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /orders:
+        get:
+            description: Returns a list of orders
+            summary: Orders
+            tags:
+                - Orders
+            produces:
+                - application/json
+            parameters:
+                - name: page
+                  in: query
+                  description: Page number
+                  required: false
+                  type: integer
+                  format: int32
+                  default: 1
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_order"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        post:
+            description: Adds an order payload to the queue to be processed
+            summary: Orders
+            tags:
+                - Orders
+            produces:
+                - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: Create an order
+                  schema:
+                    $ref: "#/definitions/request_order"
+                  required: true
+                    
+            responses:
+                201:
+                    description: Status Created
+                    schema:
+                        $ref: "#/definitions/response_order_queue"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                409: 
+                    description: Status Conflict
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /orders/{id}:
+        get:
+            description: Find an order ID
+            summary: Order By ID
+            tags:
+                - Orders
+            produces:
+                - application/json
+            parameters:
+                - name: id
+                  in: path
+                  description: ID of order
+                  required: true
+                  type: string
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/response_order"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /orders/search:
+        get:
+            description: Find order by web code and customer
+            summary: Order Search
+            tags:
+                - Orders
+            produces:
+                - application/json
+            parameters:
+                - name: q
+                  in: query
+                  description: customer first or last name or web code
+                  required: true
+                  type: string
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/response_order"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /customers:
+        get:
+            description: Returns a list of customers
+            summary: Customers
+            tags:
+                - Customers
+            produces:
+                - application/json
+            parameters:
+                - name: page
+                  in: query
+                  description: Page number
+                  required: false
+                  type: integer
+                  format: int32
+                  default: 1
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_customer"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        post:
+            description: Adds a customer
+            summary: Customers
+            tags:
+                - Customers
+            produces:
+                - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: Create a customer
+                  schema:
+                    $ref: "#/definitions/request_customer"
+                  required: true
+                    
+            responses:
+                201:
+                    description: Status Created
+                    schema:
+                        $ref: "#/definitions/response_customer"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                409: 
+                    description: Status Conflict
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /customers/{id}:
+        get:
+            description: Find a customer ID
+            summary: Customer By ID
+            tags:
+                - Customers
+            produces:
+                - application/json
+            parameters:
+                - name: id
+                  in: path
+                  description: ID of customer
+                  required: true
+                  type: string
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/response_customer"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /customers/search:
+        get:
+            description: Find a customer by name
+            summary: Customer Search
+            tags:
+                - Customers
+            produces:
+                - application/json
+            parameters:
+                - name: q
+                  in: query
+                  description: customer first or last name or web code
+                  required: true
+                  type: string
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/response_customer"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /queue:
+        get:
+            description: Returns a list of queue items
+            summary: Queue
+            tags:
+                - Queue
+            produces:
+                - application/json
+            parameters:
+                - name: page
+                  in: query
+                  description: Page number
+                  required: false
+                  type: integer
+                  format: int32
+                  default: 1
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_queue_item"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        post:
+            description: Creates a queue_item
+            summary: Queue
+            tags:
+                - Queue
+            produces:
+                - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: Create a queue item
+                  schema:
+                    $ref: "#/definitions/request_queue"
+                    # example:
+                    #     $ref: "#/definitions/request_queue_order"
+                  required: true
+            responses:
+                201:
+                    description: Status Created
+                    schema:
+                        $ref: "#/definitions/response_queue"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                409: 
+                    description: Status Conflict
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /queue/{id}:
+        get:
+            description: Find queue item by ID
+            summary: Queue item By ID
+            tags:
+                - Queue
+            produces:
+                - application/json
+            parameters:
+                - name: id
+                  in: path
+                  description: ID of queue item
+                  required: true
+                  type: string
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/response_queue_item"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /queue/filter:
+        get:
+            description: Queue Item filter by type, instruction and status
+            summary: Queue Item filter
+            tags:
+                - Queue
+            produces:
+                - application/json
+            parameters:
+                - name: queue type
+                  in: query
+                  description: queue type of queue item
+                  required: true
+                  type: string
+                - name: instruction
+                  in: query
+                  description: instruction of queue item
+                  required: true
+                  type: string
+                - name: status
+                  in: query
+                  description: status of queue item
+                  required: true
+                  type: string
+                - name: page
+                  in: query
+                  description: page number
+                  required: false
+                  type: integer
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_queue_item"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /queue/view:
+        get:
+            description: Returns the current queue count in a structured map
+            summary: Queue View
+            tags:
+                - Queue
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_queue_view"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /preregister:
+        post:
+            description: Pregister an account by sending a token to it the email address
+            summary: Pre-register
+            tags:
+                - Miscellaneous
+            produces:
+                - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: Send the register token to the email address
+                  schema:
+                    $ref: "#/definitions/request_preregister"
+                  required: true
+                    
+            responses:
+                201:
+                    description: Status Created
+                    schema:
+                        $ref: "#/definitions/response_preregister"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+
+    /register:
+        post:
+            description: Register an account by using the preregister token
+            summary: Register
+            tags:
+                - Miscellaneous
+            produces:
+                - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: Register an account
+                  schema:
+                    $ref: "#/definitions/request_register"
+                  required: true
+                    
+            responses:
+                201:
+                    description: Status Created
+                    schema:
+                        $ref: "#/definitions/response_register"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+
+    /login:
+        post:
+            description: Login to a user account by using the ApiKey
+            summary: Login
+            tags:
+                - Miscellaneous
+            produces:
+                - application/json
+            responses:
+                201:
+                    description: Status Created
+                    schema:
+                        $ref: "#/definitions/response_login"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /settings:
+        get:
+            description: Returns the list of app settings
+            summary: App Settings
+            tags:
+                - Settings
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_setting"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        post:
+            description: Activate an app setting
+            summary: App Settings
+            tags:
+                - Setting
+            produces:
+                - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: Create a setting
+                  schema:
+                    $ref: "#/definitions/request_setting"
+                  required: true
+                    
+            responses:
+                201:
+                    description: Status Created
+                    schema:
+                        $ref: "#/definitions/response_setting"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        delete:
+            description: Deactivate an app setting
+            summary: App Settings
+            tags:
+                - Setting
+            produces:
+                - application/json
+            parameters:
+                - name: key
+                  in: query
+                  description: Key of setting to remove
+                  required: true
+                  type: string
+                    
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/response_setting"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /shopify/settings:
+        get:
+            description: Returns the list of shopify settings
+            summary: Shopify Settings
+            tags:
+                - Settings
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_setting"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        post:
+            description: Activate a shopify setting
+            summary: Shopify Settings
+            tags:
+                - Setting
+            produces:
+                - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: Create a shopify setting
+                  schema:
+                    $ref: "#/definitions/request_setting"
+                  required: true
+                    
+            responses:
+                201:
+                    description: Status Created
+                    schema:
+                        $ref: "#/definitions/response_setting"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        delete:
+            description: Deactivate a setting
+            summary: Shopify Settings
+            tags:
+                - Setting
+            produces:
+                - application/json
+            parameters:
+                - name: key
+                  in: query
+                  description: Key of setting to remove
+                  required: true
+                  type: string
+                    
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/response_setting"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /inventory:
+        get:
+            description: Returns the list of location maps
+            summary: Location maps
+            tags:
+                - Miscellaneous
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_location_warehouse"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        post:
+            description: Adds a location map
+            summary: Location maps
+            tags:
+                - Miscellaneous
+            produces:
+                - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: Create a location map
+                  schema:
+                    $ref: "#/definitions/request_location_warehouse"
+                  required: true
+                    
+            responses:
+                201:
+                    description: Status Created
+                    schema:
+                        $ref: "#/definitions/response_location_warehouse"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /inventory/{id}:
+        delete:
+            description: Deactivate a location_map
+            summary: Setting
+            tags:
+                - Setting
+            produces:
+                - application/json
+            parameters:
+                - name: id
+                  in: path
+                  description: ID of location warehouse to remove
+                  required: true
+                  type: string
+                    
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/response_setting"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+    
+
