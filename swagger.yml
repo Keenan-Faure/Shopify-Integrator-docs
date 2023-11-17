@@ -23,21 +23,25 @@ securityDefinitions:
         in: header
 tags:
     - name: Products
-      description: 
-        Create, Update, Delete and Read product data. All endpoints require an ApiKey to be present
-        in the header of the request.
+      description:
+          Create, Update, Delete and Read product data. All endpoints require an ApiKey to be present
+          in the header of the request.
     - name: Orders
-      description: Create, Update, Delete and Read order data. All endpoints require an ApiKey to be present
-        in the header of the request.
+      description:
+          Create, Update, and Read order data. All endpoints require an ApiKey to be present
+          in the header of the request.
     - name: Customers
-      description: Create, Update, Delete and Read customer data. All endpoints require an ApiKey to be present
-        in the header of the request.
+      description:
+          Create, Update, and Read customer data. All endpoints require an ApiKey to be present
+          in the header of the request.
     - name: Settings
-      description: Create, Update, Delete and Read settings data. All endpoints require an ApiKey to be present
-        in the header of the request.
+      description:
+          Create, Update, Delete, and Read settings data. All endpoints require an ApiKey to be present
+          in the header of the request.
     - name: Queue
-      description: Create, Update, Delete and Read queue item data. All endpoints require an ApiKey to be present
-        in the header of the request.
+      description:
+          Create, Update, Delete, and Read queue item data. All endpoints require an ApiKey to be present
+          in the header of the request.
     - name: Miscellaneous
       description: A collection of endpoints that has no specific category, but are required as necessary.
 
@@ -60,162 +64,162 @@ definitions:
             - product_code
             - title
         properties:
-            product_code: 
+            product_code:
                 type: string
                 minLength: 1
-            title: 
+            title:
                 type: string
                 minLength: 1
-            body_html: 
+            body_html:
                 type: string
-            category: 
+            category:
                 type: string
-            vendor: 
+            vendor:
                 type: string
-            product_type: 
+            product_type:
                 type: string
-            variants: 
+            variants:
                 type: array
-                items: 
+                items:
                     type: object
                     required:
                         - sku
-                    properties: 
-                        sku: 
+                    properties:
+                        sku:
                             type: string
                             minLength: 1
-                        option1: 
+                        option1:
                             type: string
-                        option2: 
+                        option2:
                             type: string
-                        option3: 
+                        option3:
                             type: string
-                        barcode: 
+                        barcode:
                             type: string
-                        variant_price_tiers: 
+                        variant_price_tiers:
                             type: array
-                            items: 
-                              type: object
-                              properties: 
-                                name: 
-                                    type: string
-                                value: 
-                                    type: number
-                                    format: float
-                        variant_quantities: 
+                            items:
+                                type: object
+                                properties:
+                                    name:
+                                        type: string
+                                    value:
+                                        type: number
+                                        format: float
+                        variant_quantities:
                             type: array
-                            items: 
-                              type: object
-                              properties: 
-                                name: 
-                                    type: string
-                                value: 
-                                    type: number
-                                    format: int32
-            options: 
+                            items:
+                                type: object
+                                properties:
+                                    name:
+                                        type: string
+                                    value:
+                                        type: number
+                                        format: int32
+            options:
                 type: array
-                items: 
-                  type: object
-                  properties: 
-                    value: 
-                      type: string
+                items:
+                    type: object
+                    properties:
+                        value:
+                            type: string
 
     response_product:
         type: object
         properties:
-            id: 
+            id:
                 type: string
-            product_code: 
+            product_code:
                 type: string
-            active: 
+            active:
                 type: string
-            title: 
+            title:
                 type: string
-            body_html: 
+            body_html:
                 type: string
-            category: 
+            category:
                 type: string
-            vendor: 
+            vendor:
                 type: string
-            product_type: 
+            product_type:
                 type: string
-            variants: 
+            variants:
                 type: array
-                items: 
+                items:
                     type: object
                     properties:
-                        id: 
+                        id:
                             type: string
-                        sku: 
+                        sku:
                             type: string
-                        option1: 
+                        option1:
                             type: string
-                        option2: 
+                        option2:
                             type: string
-                        option3: 
+                        option3:
                             type: string
-                        barcode: 
+                        barcode:
                             type: string
-                        variant_price_tiers: 
+                        variant_price_tiers:
                             type: array
-                            items: 
+                            items:
                                 type: object
-                                properties: 
-                                    name: 
+                                properties:
+                                    name:
                                         type: string
-                                    value: 
+                                    value:
                                         type: number
                                         format: float
-                        variant_quantities: 
+                        variant_quantities:
                             type: array
-                            items: 
+                            items:
                                 type: object
-                                properties: 
-                                    name: 
+                                properties:
+                                    name:
                                         type: string
-                                    value: 
+                                    value:
                                         type: number
                                         format: int32
-                        updated_at: 
+                        updated_at:
                             type: string
-            options: 
+            options:
                 type: array
-                items: 
+                items:
                     type: object
-                    properties: 
-                        value: 
+                    properties:
+                        value:
                             type: string
-                        position: 
+                        position:
                             type: number
                             format: int32
-                            minimum: 1 
-            product_images: 
+                            minimum: 1
+            product_images:
                 type: array
-                items: 
+                items:
                     type: object
-            updated_at: 
+            updated_at:
                 type: string
                 format: date-time
 
     response_product_import:
         type: object
         properties:
-            processed_counter: 
+            processed_counter:
                 type: number
                 format: int32
-            fail_counter: 
+            fail_counter:
                 type: number
                 format: int32
-            products_added: 
+            products_added:
                 type: number
                 format: int32
-            products_updated: 
+            products_updated:
                 type: number
                 format: int32
-            variants_added: 
+            variants_added:
                 type: number
                 format: int32
-            variants_updated: 
+            variants_updated:
                 type: number
                 format: int32
 
@@ -1011,7 +1015,7 @@ definitions:
     response_order_queue:
         type: object
         properties:
-            queue_id: 
+            queue_id:
                 type: string
             object:
                 type: array
@@ -1043,37 +1047,37 @@ definitions:
             total:
                 type: number
                 format: float
-    
+
     order:
         type: object
-        properties: 
-            id: 
+        properties:
+            id:
                 type: string
-            notes: 
+            notes:
                 type: string
-            web_code: 
+            web_code:
                 type: string
-            tax_total: 
+            tax_total:
                 type: string
-            order_total: 
+            order_total:
                 type: string
-            shipping_total: 
+            shipping_total:
                 type: string
-            discount_total: 
+            discount_total:
                 type: string
-            updated_at: 
+            updated_at:
                 type: string
-            created_at: 
+            created_at:
                 type: string
-            customer: 
+            customer:
                 $ref: "#/definitions/request_customer"
-            line_items: 
+            line_items:
                 type: array
-                items: 
+                items:
                     $ref: "#/definitions/line_items"
-            shipping_lines: 
+            shipping_lines:
                 type: array
-                items: 
+                items:
                     $ref: "#/definitions/line_items"
 
     request_customer:
@@ -1102,42 +1106,42 @@ definitions:
     response_customer:
         type: object
         properties:
-            id: 
+            id:
                 type: string
-            first_name: 
+            first_name:
                 type: string
-            last_name: 
+            last_name:
                 type: string
-            email: 
+            email:
                 type: string
-            phone: 
+            phone:
                 type: string
-            shipping_address: 
+            shipping_address:
                 type: array
-                items: 
+                items:
                     type: object
-                    properties: 
-                        address_type: 
+                    properties:
+                        address_type:
                             type: string
-                        first_name: 
+                        first_name:
                             type: string
-                        last_name: 
+                        last_name:
                             type: string
-                        address_1: 
+                        address_1:
                             type: string
-                        address_2: 
+                        address_2:
                             type: string
-                        suburb: 
+                        suburb:
                             type: string
-                        city: 
+                        city:
                             type: string
-                        province: 
+                        province:
                             type: string
-                        postal_code: 
+                        postal_code:
                             type: string
-                        company: 
+                        company:
                             type: string
-            updated_at: 
+            updated_at:
                 type: string
                 format: date-time
 
@@ -1172,35 +1176,35 @@ definitions:
                 type: string
             type:
                 type: string
-            status: 
+            status:
                 type: string
-            instruction: 
+            instruction:
                 type: string
-            object: 
+            object:
                 type: object
 
     # request_queue_product:
     #     type: object
-    #     properties: 
-    #         type: 
+    #     properties:
+    #         type:
     #             type: string
-    #         status: 
+    #         status:
     #             type: string
-    #         instruction: 
+    #         instruction:
     #             type: string
-    #         object: 
+    #         object:
     #             type: object
-    #             properties: 
-    #                 system_product_id: 
+    #             properties:
+    #                 system_product_id:
     #                     type: string
-    #                 system_variant_id: 
+    #                 system_variant_id:
     #                     type: string
-    #                 shopify: 
+    #                 shopify:
     #                   type: object
-    #                   properties: 
-    #                     product_id: 
+    #                   properties:
+    #                     product_id:
     #                         type: string
-    #                     variant_id: 
+    #                     variant_id:
     #                         type: string
 
     # request_queue_order:
@@ -1208,41 +1212,41 @@ definitions:
     #     properties:
     #         type:
     #             type: string
-    #         status: 
+    #         status:
     #             type: string
-    #         instruction: 
+    #         instruction:
     #             type: string
-    #         object: 
+    #         object:
     #             type: object
     #             $ref: "#/definitions/order"
 
     # response_queue_product:
     #     type: object
     #     properties:
-    #         queue_id: 
+    #         queue_id:
     #             type: string
-    #         object: 
+    #         object:
     #             type: object
-    #             properties: 
-    #                 type: 
+    #             properties:
+    #                 type:
     #                     type: string
-    #                 status: 
+    #                 status:
     #                     type: string
-    #                 instruction: 
+    #                 instruction:
     #                     type: string
-    #                 object: 
+    #                 object:
     #                   type: object
-    #                   properties: 
-    #                     shopify: 
+    #                   properties:
+    #                     shopify:
     #                       type: object
-    #                       properties: 
-    #                         product_id: 
+    #                       properties:
+    #                         product_id:
     #                             type: string
-    #                         variant_id: 
+    #                         variant_id:
     #                             type: string
-    #                     system_product_id: 
+    #                     system_product_id:
     #                         type: string
-    #                     system_variant_id: 
+    #                     system_variant_id:
     #                         type: string
 
     # response_queue_order:
@@ -1252,11 +1256,11 @@ definitions:
     #             type: string
     #         type:
     #             type: string
-    #         status: 
+    #         status:
     #             type: string
-    #         instruction: 
+    #         instruction:
     #             type: string
-    #         object: 
+    #         object:
     #             type: object
     #             $ref: "#/definitions/order"
 
@@ -1267,137 +1271,137 @@ definitions:
                 type: string
             type:
                 type: string
-            status: 
+            status:
                 type: string
-            instruction: 
+            instruction:
                 type: string
-            object: 
+            object:
                 type: object
 
     response_queue_view:
         type: object
-        properties: 
-            add_order: 
+        properties:
+            add_order:
                 type: number
                 format: int32
-            add_product: 
+            add_product:
                 type: number
                 format: int32
-            add_variant: 
+            add_variant:
                 type: number
                 format: int32
-            update_order: 
+            update_order:
                 type: number
                 format: int32
-            update_product: 
+            update_product:
                 type: number
                 format: int32
-            update_variant: 
+            update_variant:
                 type: number
                 format: int32
 
     response_queue_item:
         type: object
         properties:
-            id: 
+            id:
                 type: string
-            queue_type: 
+            queue_type:
                 type: string
-            instruction: 
+            instruction:
                 type: string
-            status: 
+            status:
                 type: string
-            object: 
+            object:
                 type: object
 
     request_setting:
         type: array
-        items: 
-          type: object
-          properties: 
-            key: 
-                type: string
-            value: 
-                type: string
+        items:
+            type: object
+            properties:
+                key:
+                    type: string
+                value:
+                    type: string
 
     response_setting:
         type: object
         properties:
-            message: 
+            message:
                 type: string
 
     request_location_warehouse:
         type: object
-        properties: 
-            location_id: 
+        properties:
+            location_id:
                 type: string
-            warehouse_name: 
+            warehouse_name:
                 type: string
-            shopify_warehouse_name: 
+            shopify_warehouse_name:
                 type: string
 
     response_location_warehouse:
         type: object
-        properties: 
-            id: 
+        properties:
+            id:
                 type: string
-            shopify_warehouse_name: 
+            shopify_warehouse_name:
                 type: string
-            shopify_location_id: 
+            shopify_location_id:
                 type: string
-            warehouse_name: 
+            warehouse_name:
                 type: string
-            created_at: 
+            created_at:
                 type: string
-            updated_at: 
+            updated_at:
                 type: string
 
     request_preregister:
         type: object
-        properties: 
-            name: 
+        properties:
+            name:
                 type: string
-            email: 
+            email:
                 type: string
 
     response_preregister:
         type: object
-        properties: 
-            message: 
+        properties:
+            message:
                 type: string
-    
+
     request_register:
         type: object
-        properties: 
-            name: 
+        properties:
+            name:
                 type: string
-            email: 
+            email:
                 type: string
-            token: 
+            token:
                 type: string
 
     response_register:
         type: object
-        properties: 
-            id: 
+        properties:
+            id:
                 type: string
-            webhook_token: 
+            webhook_token:
                 type: string
-            created_at: 
+            created_at:
                 type: string
-            updated_at: 
+            updated_at:
                 type: string
-            name: 
+            name:
                 type: string
-            email: 
+            email:
                 type: string
-            api_key: 
+            api_key:
                 type: string
 
     response_login:
         type: object
         properties:
-            status: 
+            status:
                 type: string
 
 paths:
@@ -1442,9 +1446,9 @@ paths:
                   in: body
                   description: Create a product with variations
                   schema:
-                    $ref: "#/definitions/request_product"
+                      $ref: "#/definitions/request_product"
                   required: true
-                    
+
             responses:
                 201:
                     description: Status Created
@@ -1454,7 +1458,7 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
-                409: 
+                409:
                     description: Status Conflict
                     schema:
                         $ref: "#/definitions/error"
@@ -1464,7 +1468,7 @@ paths:
                         $ref: "#/definitions/error"
             security:
                 - api_key: []
-        
+
     /products/{id}:
         get:
             description: Find product by ID
@@ -1484,6 +1488,39 @@ paths:
                     description: Status OK
                     schema:
                         $ref: "#/definitions/response_product"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        delete:
+            description: Delete product by ID or variant ID
+            summary: Delete By ID
+            tags:
+                - Products
+            produces:
+                - application/json
+            parameters:
+                - name: id
+                  in: path
+                  description: ID of product to remove
+                  required: true
+                  type: string
+                - name: variant_id
+                  in: path
+                  description: ID of variant to remove
+                  required: true
+                  type: string
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/message"
                 400:
                     description: Bad Request
                     schema:
@@ -1579,8 +1616,8 @@ paths:
                   in: query
                   description: Name of CSV file on server
                   required: true
-                  type: string                    
-                    
+                  type: string
+
             responses:
                 200:
                     description: Status OK
@@ -1658,9 +1695,9 @@ paths:
                   in: body
                   description: Create an order
                   schema:
-                    $ref: "#/definitions/request_order"
+                      $ref: "#/definitions/request_order"
                   required: true
-                    
+
             responses:
                 201:
                     description: Status Created
@@ -1670,7 +1707,7 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
-                409: 
+                409:
                     description: Status Conflict
                     schema:
                         $ref: "#/definitions/error"
@@ -1782,9 +1819,9 @@ paths:
                   in: body
                   description: Create a customer
                   schema:
-                    $ref: "#/definitions/request_customer"
+                      $ref: "#/definitions/request_customer"
                   required: true
-                    
+
             responses:
                 201:
                     description: Status Created
@@ -1794,7 +1831,7 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
-                409: 
+                409:
                     description: Status Conflict
                     schema:
                         $ref: "#/definitions/error"
@@ -1906,9 +1943,9 @@ paths:
                   in: body
                   description: Create a queue item
                   schema:
-                    $ref: "#/definitions/request_queue"
-                    # example:
-                    #     $ref: "#/definitions/request_queue_order"
+                      $ref: "#/definitions/request_queue"
+                      # example:
+                      #     $ref: "#/definitions/request_queue_order"
                   required: true
             responses:
                 201:
@@ -1919,7 +1956,7 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
-                409: 
+                409:
                     description: Status Conflict
                     schema:
                         $ref: "#/definitions/error"
@@ -2038,9 +2075,9 @@ paths:
                   in: body
                   description: Send the register token to the email address
                   schema:
-                    $ref: "#/definitions/request_preregister"
+                      $ref: "#/definitions/request_preregister"
                   required: true
-                    
+
             responses:
                 201:
                     description: Status Created
@@ -2068,9 +2105,9 @@ paths:
                   in: body
                   description: Register an account
                   schema:
-                    $ref: "#/definitions/request_register"
+                      $ref: "#/definitions/request_register"
                   required: true
-                    
+
             responses:
                 201:
                     description: Status Created
@@ -2142,9 +2179,9 @@ paths:
                   in: body
                   description: Create a setting
                   schema:
-                    $ref: "#/definitions/request_setting"
+                      $ref: "#/definitions/request_setting"
                   required: true
-                    
+
             responses:
                 201:
                     description: Status Created
@@ -2173,7 +2210,7 @@ paths:
                   description: Key of setting to remove
                   required: true
                   type: string
-                    
+
             responses:
                 200:
                     description: Status OK
@@ -2223,9 +2260,9 @@ paths:
                   in: body
                   description: Create a shopify setting
                   schema:
-                    $ref: "#/definitions/request_setting"
+                      $ref: "#/definitions/request_setting"
                   required: true
-                    
+
             responses:
                 201:
                     description: Status Created
@@ -2254,7 +2291,7 @@ paths:
                   description: Key of setting to remove
                   required: true
                   type: string
-                    
+
             responses:
                 200:
                     description: Status OK
@@ -2304,9 +2341,9 @@ paths:
                   in: body
                   description: Create a location map
                   schema:
-                    $ref: "#/definitions/request_location_warehouse"
+                      $ref: "#/definitions/request_location_warehouse"
                   required: true
-                    
+
             responses:
                 201:
                     description: Status Created
@@ -2337,7 +2374,7 @@ paths:
                   description: ID of location warehouse to remove
                   required: true
                   type: string
-                    
+
             responses:
                 200:
                     description: Status OK
@@ -2353,5 +2390,3 @@ paths:
                         $ref: "#/definitions/error"
             security:
                 - api_key: []
-    
-
