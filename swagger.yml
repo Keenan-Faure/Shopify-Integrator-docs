@@ -1499,7 +1499,7 @@ paths:
             security:
                 - api_key: []
         delete:
-            description: Delete product by ID or variant ID
+            description: Delete product by ID
             summary: Delete By ID
             tags:
                 - Products
@@ -1511,6 +1511,31 @@ paths:
                   description: ID of product to remove
                   required: true
                   type: string
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/message"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /product/{variant_id}:
+        delete:
+            description: Delete variant by ID
+            summary: Delete variant ID
+            tags:
+                - Products
+            produces:
+                - application/json
+            parameters:
                 - name: variant_id
                   in: path
                   description: ID of variant to remove
@@ -1531,7 +1556,6 @@ paths:
                         $ref: "#/definitions/error"
             security:
                 - api_key: []
-
     /products/search:
         get:
             description: Find product by Title and SKU
