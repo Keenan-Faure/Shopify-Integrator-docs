@@ -1323,6 +1323,12 @@ definitions:
                     type: string
                 value:
                     type: string
+    
+    request_webhook_url:
+        type: object
+        properties:
+            forwarding_url:
+                type: string
 
     response_setting:
         type: object
@@ -1482,6 +1488,14 @@ paths:
                         type: array
                         items:
                             $ref: "#/definitions/response_product"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -1510,6 +1524,14 @@ paths:
                         $ref: "#/definitions/response_product"
                 400:
                     description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 409:
@@ -1546,6 +1568,14 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -1572,6 +1602,14 @@ paths:
                         $ref: "#/definitions/message"
                 400:
                     description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 500:
@@ -1604,6 +1642,14 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -1631,6 +1677,14 @@ paths:
                         $ref: "#/definitions/response_product"
                 400:
                     description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 500:
@@ -1674,6 +1728,14 @@ paths:
                     description: Status OK
                     schema:
                         $ref: "#/definitions/response_product"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -1705,6 +1767,14 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -1725,6 +1795,14 @@ paths:
                     description: Status OK
                     schema:
                         $ref: "#/definitions/message"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -1755,6 +1833,14 @@ paths:
                         type: array
                         items:
                             $ref: "#/definitions/response_order"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -1783,6 +1869,14 @@ paths:
                         $ref: "#/definitions/response_order_queue"
                 400:
                     description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 409:
@@ -1819,6 +1913,14 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -1847,6 +1949,14 @@ paths:
                         $ref: "#/definitions/response_order"
                 400:
                     description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 500:
@@ -1879,6 +1989,14 @@ paths:
                         type: array
                         items:
                             $ref: "#/definitions/response_customer"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -1913,6 +2031,14 @@ paths:
                     description: Status Conflict
                     schema:
                         $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -1941,6 +2067,14 @@ paths:
                         $ref: "#/definitions/response_customer"
                 400:
                     description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 500:
@@ -1973,6 +2107,14 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2003,6 +2145,14 @@ paths:
                         type: array
                         items:
                             $ref: "#/definitions/response_queue_item"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2038,6 +2188,14 @@ paths:
                     description: Status Conflict
                     schema:
                         $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2066,6 +2224,14 @@ paths:
                         $ref: "#/definitions/response_queue_item"
                 400:
                     description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 500:
@@ -2111,6 +2277,14 @@ paths:
                         type: array
                         items:
                             $ref: "#/definitions/response_queue_item"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2133,6 +2307,14 @@ paths:
                         type: array
                         items:
                             $ref: "#/definitions/response_queue_view"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2165,6 +2347,14 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2195,6 +2385,14 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2215,6 +2413,49 @@ paths:
                         $ref: "#/definitions/response_login"
                 400:
                     description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /settings/webhook:
+        post:
+            description: Returns the webhook url for a specific user
+            summary: Webhook URL
+            tags:
+                - Settings
+            produces:
+                - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: Create a webhook url
+                  schema:
+                      $ref: "#/definitions/request_webhook_url"
+                  required: true
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/message"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 500:
@@ -2239,6 +2480,14 @@ paths:
                         type: array
                         items:
                             $ref: "#/definitions/response_setting"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2265,8 +2514,12 @@ paths:
                     description: Status Created
                     schema:
                         $ref: "#/definitions/response_setting"
-                400:
-                    description: Bad Request
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 500:
@@ -2298,6 +2551,14 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2320,6 +2581,14 @@ paths:
                         type: array
                         items:
                             $ref: "#/definitions/response_setting"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2350,6 +2619,14 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2377,6 +2654,14 @@ paths:
                         $ref: "#/definitions/response_setting"
                 400:
                     description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 500:
@@ -2409,6 +2694,14 @@ paths:
                         type: array
                         items:
                             $ref: "#/definitions/response_location_warehouse"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2437,6 +2730,14 @@ paths:
                         $ref: "#/definitions/response_location_warehouse"
                 400:
                     description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 500:
@@ -2470,6 +2771,14 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
@@ -2492,6 +2801,14 @@ paths:
                         type: array
                         items:
                             $ref: "#/definitions/response_location_warehouse_config"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
                 500:
                     description: Internal Server Error
                     schema:
