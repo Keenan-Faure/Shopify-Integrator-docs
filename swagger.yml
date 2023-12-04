@@ -1356,6 +1356,60 @@ definitions:
             updated_at:
                 type: string
 
+    response_location_warehouse_config:
+        type: object
+        properties:
+          warehouses:
+            type: array
+            items:
+              type: string
+          shopify_locations:
+            type: object
+            properties:
+              locations:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    name:
+                      type: string
+                    address1:
+                      type: string
+                    address2:
+                      type: string
+                    city:
+                      type: string
+                    zip:
+                      type: string
+                    province:
+                      type: string
+                    country:
+                      type: string
+                    phone:
+                      type: string
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                    country_code:
+                      type: string
+                    country_name:
+                      type: string
+                    province_code:
+                      type: string
+                    legacy:
+                      type: boolean
+                    active:
+                      type: boolean
+                    admin_graphql_api_id:
+                      type: string
+                    localized_country_name:
+                      type: string
+                    localized_province_name:
+                      type: string
+
     request_preregister:
         type: object
         properties:
@@ -2340,6 +2394,14 @@ paths:
                 - Miscellaneous
             produces:
                 - application/json
+            parameters:
+                - name: page
+                  in: query
+                  description: Page number
+                  required: false
+                  type: integer
+                  format: int32
+                  default: 1
             responses:
                 200:
                     description: Status OK
@@ -2386,10 +2448,10 @@ paths:
 
     /inventory/{id}:
         delete:
-            description: Deactivate a location_map
-            summary: Setting
+            description: Deactivate a location map
+            summary: Location map
             tags:
-                - Setting
+                - Miscellaneous
             produces:
                 - application/json
             parameters:
@@ -2408,6 +2470,28 @@ paths:
                     description: Bad Request
                     schema:
                         $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /inventory/config:
+        get:
+            description: Returns the list of locations on Shopify vs internal warehouses
+            summary: Warehouse-location map
+            tags:
+                - Miscellaneous
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_location_warehouse_config"
                 500:
                     description: Internal Server Error
                     schema:
