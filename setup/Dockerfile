@@ -6,6 +6,7 @@ WORKDIR /keenan/
 COPY ./ /keenan/docs
 
 # install swagger
+RUN brew update-reset
 RUN brew tap go-swagger/go-swagger
 RUN brew install go-swagger
 
