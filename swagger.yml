@@ -1353,7 +1353,7 @@ definitions:
     request_webhook_url:
         type: object
         properties:
-            forwarding_url:
+            domain:
                 type: string
 
     response_setting:
