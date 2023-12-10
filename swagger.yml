@@ -42,6 +42,8 @@ tags:
       description:
           Create, Update, Delete, and Read queue item data. All endpoints require an ApiKey to be present
           in the header of the request.
+    - name: Statistics
+      description: Read database statistics.
     - name: Miscellaneous
       description: A collection of endpoints that has no specific category, but are required as necessary.
 
@@ -1182,6 +1184,30 @@ definitions:
                 type: string
             object:
                 type: object
+    
+    response_stats_fetch:
+        type: object
+        properties:
+            amounts:
+                type: array
+                items:
+                    type: number
+            hours:
+                type: array
+                items:
+                    type: string
+
+    response_stats_orders:
+        type: object
+        properties:
+            count:
+                type: array
+                items:
+                    type: number
+            hours:
+                type: array
+                items:
+                    type: string
 
     # request_queue_product:
     #     type: object
@@ -2786,7 +2812,7 @@ paths:
             security:
                 - api_key: []
 
-    /inventory/config:
+    /inventory/map:
         get:
             description: Returns the list of locations on Shopify vs internal warehouses
             summary: Warehouse-location map
@@ -2801,6 +2827,66 @@ paths:
                         type: array
                         items:
                             $ref: "#/definitions/response_location_warehouse_config"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /stats/fetch:
+        get:
+            description: Returns the shopify fetch statistics
+            summary: Shopify fetch statistics
+            tags:
+                - Statistics
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_stats_fetch"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+
+    /stats/orders:
+        get:
+            description: Returns the shopify orders statistics
+            summary: Shopify order statistics
+            tags:
+                - Statistics
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_stats_orders"
                 401:
                     description: Unauthorized
                     schema:
