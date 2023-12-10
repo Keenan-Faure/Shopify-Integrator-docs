@@ -2560,7 +2560,7 @@ paths:
             description: Activate an app setting
             summary: App Settings
             tags:
-                - Setting
+                - Settings
             produces:
                 - application/json
             parameters:
@@ -2594,7 +2594,7 @@ paths:
             description: Deactivate an app setting
             summary: App Settings
             tags:
-                - Setting
+                - Settings
             produces:
                 - application/json
             parameters:
@@ -2661,7 +2661,7 @@ paths:
             description: Activate a shopify setting
             summary: Shopify Settings
             tags:
-                - Setting
+                - Settings
             produces:
                 - application/json
             parameters:
@@ -2699,7 +2699,7 @@ paths:
             description: Deactivate a setting
             summary: Shopify Settings
             tags:
-                - Setting
+                - Settings
             produces:
                 - application/json
             parameters:
