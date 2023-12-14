@@ -2756,6 +2756,36 @@ paths:
                         $ref: "#/definitions/error"
             security:
                 - api_key: []
+    
+    /inventory/config:
+        get:
+            description: Returns the list of shopify locations and global warehouses
+            summary: Location maps
+            tags:
+                - Locations-maps
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_location_warehouse_config"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
 
     /inventory/map:
         get:
@@ -2874,7 +2904,7 @@ paths:
                   in: query
                   description: Reindex parameter
                   required: false
-                  type: string
+                  type: boolean
                   default: false
                 - name: Payload
                   in: body
