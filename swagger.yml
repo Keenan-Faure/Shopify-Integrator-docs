@@ -44,6 +44,14 @@ tags:
           in the header of the request.
     - name: Statistics
       description: Read database statistics.
+    - name: Warehouses
+      description:
+          Create, delete and Read internal global warehouses. All endpoints require an ApiKey to be present
+          in the header of the request.
+    - name: Locations-maps
+      description:
+          Create, delete and read location maps. All endpoints require an ApiKey to be present
+          in the header of the request.
     - name: Miscellaneous
       description: A collection of endpoints that has no specific category, but are required as necessary.
 
@@ -1372,6 +1380,12 @@ definitions:
             shopify_warehouse_name:
                 type: string
 
+    request_warehouse:
+        type: object
+        properties:
+            name:
+                type: string
+
     response_location_warehouse:
         type: object
         properties:
@@ -1384,6 +1398,16 @@ definitions:
             warehouse_name:
                 type: string
             created_at:
+                type: string
+            updated_at:
+                type: string
+    
+    response_warehouse:
+        type: object
+        properties:
+            id:
+                type: string
+            name:
                 type: string
             updated_at:
                 type: string
@@ -2733,12 +2757,12 @@ paths:
             security:
                 - api_key: []
 
-    /inventory:
+    /inventory/map:
         get:
             description: Returns the list of location maps
             summary: Location maps
             tags:
-                - Miscellaneous
+                - Locations-maps
             produces:
                 - application/json
             parameters:
@@ -2774,7 +2798,7 @@ paths:
             description: Adds a location map
             summary: Location maps
             tags:
-                - Miscellaneous
+                - Locations-maps
             produces:
                 - application/json
             parameters:
@@ -2809,18 +2833,128 @@ paths:
             security:
                 - api_key: []
 
-    /inventory/{id}:
-        delete:
-            description: Deactivate a location map
-            summary: Location map
+    /inventory/warehouse:
+        get:
+            description: Returns the list of all global Warehouses
+            summary: Warehouses
             tags:
-                - Miscellaneous
+                - Warehouses
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/definitions/response_warehouse"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        post:
+            description: Adds a new global warehouse
+            summary: Warehouses
+            tags:
+                - Warehouses
+            produces:
+                - application/json
+            parameters:
+                - name: reindex
+                  in: query
+                  description: Reindex parameter
+                  required: false
+                  type: string
+                  default: false
+                - name: Payload
+                  in: body
+                  description: Create a new Warehouse
+                  schema:
+                      $ref: "#/definitions/request_warehouse"
+                  required: true
+
+            responses:
+                201:
+                    description: Status Created
+                    schema:
+                        $ref: "#/definitions/response_warehouse"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []    
+
+    /inventory/warehouse/{id}:
+        get:
+            description: Find a global Warehouse by ID
+            summary: Warehouse by ID
+            tags:
+                - Warehouses
             produces:
                 - application/json
             parameters:
                 - name: id
                   in: path
-                  description: ID of location warehouse to remove
+                  description: ID of Warehouse
+                  required: true
+                  type: string
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/response_queue_item"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        delete:
+            description: Deactivate a global warehouse
+            summary: Warehouses by ID
+            tags:
+                - Warehouses
+            produces:
+                - application/json
+            parameters:
+                - name: id
+                  in: path
+                  description: ID of warehouse to remove
                   required: true
                   type: string
 
@@ -2848,21 +2982,30 @@ paths:
             security:
                 - api_key: []
 
-    /inventory/map:
-        get:
-            description: Returns the list of locations on Shopify vs internal warehouses
-            summary: Warehouse-location map
+    /inventory/map/{id}:
+        delete:
+            description: Deactivate a location map
+            summary: Location map
             tags:
-                - Miscellaneous
+                - Locations-maps
             produces:
                 - application/json
+            parameters:
+                - name: id
+                  in: path
+                  description: ID of location warehouse to remove
+                  required: true
+                  type: string
+
             responses:
                 200:
                     description: Status OK
                     schema:
-                        type: array
-                        items:
-                            $ref: "#/definitions/response_location_warehouse_config"
+                        $ref: "#/definitions/response_setting"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
                 401:
                     description: Unauthorized
                     schema:
