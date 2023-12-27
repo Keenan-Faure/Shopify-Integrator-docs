@@ -54,6 +54,10 @@ tags:
           in the header of the request.
     - name: Shopify
       description: A collection of endpoints that interacts with Shopify's API to bring QoL to the application
+    - name: Restriction
+      description:
+        A collection of endpoints that updates and retrieves the restrictions for the fetch and push
+        to and from Shopify
     - name: Miscellaneous
       description: A collection of endpoints that has no specific category, but are required as necessary.
 
@@ -69,6 +73,26 @@ definitions:
         properties:
             message:
                 type: string
+    
+    request_restriction:
+        type: array
+        items:
+            type: object
+            properties:
+                field:
+                    type: string
+                flag:
+                    type: string
+
+    response_restriction:
+        type: array
+        items:
+            type: object
+            properties:
+                field:
+                    type: string
+                flag:
+                    type: string
 
     request_product:
         type: object
@@ -2582,7 +2606,7 @@ paths:
                         $ref: "#/definitions/error"
             security:
                 - api_key: []
-        post:
+        put:
             description: Activate an app setting
             summary: App Settings
             tags:
@@ -2592,14 +2616,14 @@ paths:
             parameters:
                 - name: Payload
                   in: body
-                  description: Create a setting
+                  description: Update a setting
                   schema:
                       $ref: "#/definitions/request_setting"
                   required: true
 
             responses:
-                201:
-                    description: Status Created
+                200:
+                    description: Status OK
                     schema:
                         $ref: "#/definitions/response_setting"
                 401:
@@ -2683,7 +2707,7 @@ paths:
                         $ref: "#/definitions/error"
             security:
                 - api_key: []
-        post:
+        put:
             description: Activate a shopify setting
             summary: Shopify Settings
             tags:
@@ -2693,14 +2717,14 @@ paths:
             parameters:
                 - name: Payload
                   in: body
-                  description: Create a shopify setting
+                  description: Update a shopify setting
                   schema:
                       $ref: "#/definitions/request_setting"
                   required: true
 
             responses:
-                201:
-                    description: Status Created
+                200:
+                    description: Status OK
                     schema:
                         $ref: "#/definitions/response_setting"
                 400:
@@ -3136,6 +3160,136 @@ paths:
                         $ref: "#/definitions/error"
                 409:
                     description: Conflict
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+    
+    /fetch/restriction:
+        get:
+            description: Get all fetch restrictions
+            summary: Fetch Restriction
+            tags:
+                - Restriction
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/response_restriction"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        put:
+            description: Update the fetch restrictions
+            summary: Fetch Restriction
+            tags:
+                - Restriction
+            produces:
+                - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: Update a restriction
+                  schema:
+                      $ref: "#/definitions/request_restriction"
+                  required: true
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/message"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+    
+    /push/restriction:
+        get:
+            description: Get all push restrictions
+            summary: Push Restriction
+            tags:
+                - Restriction
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/response_restriction"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        put:
+            description: Update the push restrictions
+            summary: Push Restriction
+            tags:
+                - Restriction
+            produces:
+                - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: Update a restriction
+                  schema:
+                      $ref: "#/definitions/request_restriction"
+                  required: true
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/message"
+                400:
+                    description: Bad Request
+                    schema:
+                        $ref: "#/definitions/error"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 500:

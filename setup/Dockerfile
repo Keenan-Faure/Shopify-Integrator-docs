@@ -12,4 +12,4 @@ RUN brew install go-swagger
 
 RUN cd /keenan/docs && swagger validate ./swagger.yml
 
-ENTRYPOINT [ "swagger", "serve", "/keenan/docs/swagger.yml", "--port=8070", "--base-path=/api/", "--no-open"]
+CMD [ "swagger", "serve", "/keenan/docs/swagger.yml", "--port=8070", "--base-path=/api/", "--no-open"]
