@@ -56,8 +56,8 @@ tags:
       description: A collection of endpoints that interacts with Shopify's API to bring QoL to the application
     - name: Restriction
       description:
-        A collection of endpoints that updates and retrieves the restrictions for the fetch and push
-        to and from Shopify
+          A collection of endpoints that updates and retrieves the restrictions for the fetch and push
+          to and from Shopify
     - name: Miscellaneous
       description: A collection of endpoints that has no specific category, but are required as necessary.
 
@@ -73,7 +73,7 @@ definitions:
         properties:
             message:
                 type: string
-    
+
     request_restriction:
         type: array
         items:
@@ -1218,7 +1218,7 @@ definitions:
                 type: string
             object:
                 type: object
-    
+
     response_stats_fetch:
         type: object
         properties:
@@ -1383,7 +1383,7 @@ definitions:
                     type: string
                 value:
                     type: string
-    
+
     request_webhook_url:
         type: object
         properties:
@@ -1427,7 +1427,7 @@ definitions:
                 type: string
             updated_at:
                 type: string
-    
+
     response_warehouse:
         type: object
         properties:
@@ -1441,56 +1441,56 @@ definitions:
     response_location_warehouse_config:
         type: object
         properties:
-          warehouses:
-            type: array
-            items:
-              type: string
-          shopify_locations:
-            type: object
-            properties:
-              locations:
+            warehouses:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: number
-                    name:
-                      type: string
-                    address1:
-                      type: string
-                    address2:
-                      type: string
-                    city:
-                      type: string
-                    zip:
-                      type: string
-                    province:
-                      type: string
-                    country:
-                      type: string
-                    phone:
-                      type: string
-                    created_at:
-                      type: string
-                    updated_at:
-                      type: string
-                    country_code:
-                      type: string
-                    country_name:
-                      type: string
-                    province_code:
-                      type: string
-                    legacy:
-                      type: boolean
-                    active:
-                      type: boolean
-                    admin_graphql_api_id:
-                      type: string
-                    localized_country_name:
-                      type: string
-                    localized_province_name:
-                      type: string
+                    type: string
+            shopify_locations:
+                type: object
+                properties:
+                    locations:
+                        type: array
+                        items:
+                            type: object
+                            properties:
+                                id:
+                                    type: number
+                                name:
+                                    type: string
+                                address1:
+                                    type: string
+                                address2:
+                                    type: string
+                                city:
+                                    type: string
+                                zip:
+                                    type: string
+                                province:
+                                    type: string
+                                country:
+                                    type: string
+                                phone:
+                                    type: string
+                                created_at:
+                                    type: string
+                                updated_at:
+                                    type: string
+                                country_code:
+                                    type: string
+                                country_name:
+                                    type: string
+                                province_code:
+                                    type: string
+                                legacy:
+                                    type: boolean
+                                active:
+                                    type: boolean
+                                admin_graphql_api_id:
+                                    type: string
+                                localized_country_name:
+                                    type: string
+                                localized_province_name:
+                                    type: string
 
     request_preregister:
         type: object
@@ -1702,6 +1702,12 @@ paths:
             produces:
                 - application/json
             parameters:
+                - name: Payload
+                  in: body
+                  description: Create a product with variations
+                  schema:
+                      $ref: "#/definitions/request_product"
+                  required: true
                 - name: id
                   in: path
                   description: ID of product
@@ -1770,7 +1776,7 @@ paths:
                 - api_key: []
     /products/search:
         get:
-            description: Find product by Title and SKU
+            description: Search for a specific product by it's title or SKU
             summary: Product Search
             tags:
                 - Products
@@ -1857,7 +1863,7 @@ paths:
 
     /products/import:
         post:
-            description: Bulk add products using a CSV file
+            description: Bulk add products using a CSV file. The file must have headers included.
             summary: Product Import
             tags:
                 - Products
@@ -1896,7 +1902,7 @@ paths:
 
     /products/export:
         get:
-            description: Export Product data as a CSV file
+            description: Export Product data as a CSV file. The API returns a downloadable link with which to save the file locally.
             summary: Product Export
             tags:
                 - Products
@@ -1960,7 +1966,8 @@ paths:
             security:
                 - api_key: []
         post:
-            description: Adds an order payload to the queue to be processed
+            description: Adds an order payload to the queue to be processed. The is usually done using the API with a Shopify Webhook.
+                        Please see [Guide](https://github.com/go-swagger/go-swagger)
             summary: Orders
             tags:
                 - Orders
@@ -2782,7 +2789,7 @@ paths:
                         $ref: "#/definitions/error"
             security:
                 - api_key: []
-    
+
     /inventory/config:
         get:
             description: Returns the list of shopify locations and global warehouses
@@ -2961,7 +2968,7 @@ paths:
                     schema:
                         $ref: "#/definitions/error"
             security:
-                - api_key: []    
+                - api_key: []
 
     /inventory/warehouse/{id}:
         get:
@@ -3136,7 +3143,7 @@ paths:
                         $ref: "#/definitions/error"
             security:
                 - api_key: []
-    
+
     /shopify/fetch:
         get:
             description: Fetch Products from Shopify
@@ -3168,7 +3175,7 @@ paths:
                         $ref: "#/definitions/error"
             security:
                 - api_key: []
-    
+
     /fetch/restriction:
         get:
             description: Get all fetch restrictions
@@ -3233,7 +3240,7 @@ paths:
                         $ref: "#/definitions/error"
             security:
                 - api_key: []
-    
+
     /push/restriction:
         get:
             description: Get all push restrictions
