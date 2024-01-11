@@ -1390,6 +1390,14 @@ definitions:
             domain:
                 type: string
 
+    request_login:
+        type: object
+        properties:
+            username:
+                type: string
+            password:
+                type: string
+
     response_setting:
         type: object
         properties:
@@ -1513,6 +1521,8 @@ definitions:
                 type: string
             email:
                 type: string
+            password:
+                type: string
             token:
                 type: string
 
@@ -1537,7 +1547,7 @@ definitions:
     response_login:
         type: object
         properties:
-            status:
+            api_key:
                 type: string
 
 paths:
@@ -1966,8 +1976,9 @@ paths:
             security:
                 - api_key: []
         post:
-            description: Adds an order payload to the queue to be processed. The is usually done using the API with a Shopify Webhook.
-                        Please see [Guide](https://github.com/go-swagger/go-swagger)
+            description:
+                Adds an order payload to the queue to be processed. The is usually done using the API with a Shopify Webhook.
+                Please see [Guide](https://github.com/go-swagger/go-swagger)
             summary: Orders
             tags:
                 - Orders
@@ -2490,7 +2501,7 @@ paths:
             parameters:
                 - name: Payload
                   in: body
-                  description: Register an account
+                  description: Register a user account
                   schema:
                       $ref: "#/definitions/request_register"
                   required: true
@@ -2525,9 +2536,16 @@ paths:
                 - Miscellaneous
             produces:
                 - application/json
+            parameters:
+                - name: Payload
+                  in: body
+                  description: User credentials to login
+                  schema:
+                      $ref: "#/definitions/request_login"
+                  required: true
             responses:
-                201:
-                    description: Status Created
+                200:
+                    description: Status OK
                     schema:
                         $ref: "#/definitions/response_login"
                 400:
@@ -2546,8 +2564,6 @@ paths:
                     description: Internal Server Error
                     schema:
                         $ref: "#/definitions/error"
-            security:
-                - api_key: []
 
     /settings/webhook:
         post:
