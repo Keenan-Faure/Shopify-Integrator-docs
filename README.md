@@ -2,8 +2,8 @@
 
 API Documentation for Shopify Integrator created with Swagger
 
-1. Description of project
-2. Installation
+1. [Description of project](#description-of-project)
+2. [Installation](#installation)
 
 ## Description of project
 
