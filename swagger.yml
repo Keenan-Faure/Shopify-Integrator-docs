@@ -36,21 +36,21 @@ tags:
           in the header of the request.
     - name: Settings
       description:
-          Create, Update, Delete, and Read settings data. All endpoints require an ApiKey to be present
+          Update, and Read settings data. All endpoints require an ApiKey to be present
           in the header of the request.
     - name: Queue
       description:
-          Create, Update, Delete, and Read queue item data. All endpoints require an ApiKey to be present
+          Create, and Read queue item data. All endpoints require an ApiKey to be present
           in the header of the request.
     - name: Statistics
       description: Read database statistics.
     - name: Warehouses
       description:
-          Create, delete and Read internal global warehouses. All endpoints require an ApiKey to be present
+          Create and Read internal global warehouses. All endpoints require an ApiKey to be present
           in the header of the request.
     - name: Locations-maps
       description:
-          Create, delete and read location maps. All endpoints require an ApiKey to be present
+          Create, Delete and Read location maps. All endpoints require an ApiKey to be present
           in the header of the request.
     - name: Shopify
       description: A collection of endpoints that interacts with Shopify's API to bring QoL to the application
@@ -1747,43 +1747,43 @@ paths:
             security:
                 - api_key: []
 
-    /product/{variant_id}:
-        delete:
-            description: Delete variant by ID
-            summary: Delete variant ID
-            tags:
-                - Products
-            produces:
-                - application/json
-            parameters:
-                - name: variant_id
-                  in: path
-                  description: ID of variant to remove
-                  required: true
-                  type: string
-            responses:
-                200:
-                    description: Status OK
-                    schema:
-                        $ref: "#/definitions/message"
-                400:
-                    description: Bad Request
-                    schema:
-                        $ref: "#/definitions/error"
-                401:
-                    description: Unauthorized
-                    schema:
-                        $ref: "#/definitions/error"
-                404:
-                    description: Not Found
-                    schema:
-                        $ref: "#/definitions/error"
-                500:
-                    description: Internal Server Error
-                    schema:
-                        $ref: "#/definitions/error"
-            security:
-                - api_key: []
+    # /product/{variant_id}:
+    #     delete:
+    #         description: Delete variant by ID
+    #         summary: Delete variant ID
+    #         tags:
+    #             - Products
+    #         produces:
+    #             - application/json
+    #         parameters:
+    #             - name: variant_id
+    #               in: path
+    #               description: ID of variant to remove
+    #               required: true
+    #               type: string
+    #         responses:
+    #             200:
+    #                 description: Status OK
+    #                 schema:
+    #                     $ref: "#/definitions/message"
+    #             400:
+    #                 description: Bad Request
+    #                 schema:
+    #                     $ref: "#/definitions/error"
+    #             401:
+    #                 description: Unauthorized
+    #                 schema:
+    #                     $ref: "#/definitions/error"
+    #             404:
+    #                 description: Not Found
+    #                 schema:
+    #                     $ref: "#/definitions/error"
+    #             500:
+    #                 description: Internal Server Error
+    #                 schema:
+    #                     $ref: "#/definitions/error"
+    #         security:
+    #             - api_key: []
     /products/search:
         get:
             description: Search for a specific product by it's title or SKU
@@ -2454,7 +2454,7 @@ paths:
 
     /preregister:
         post:
-            description: Pregister an account by sending a token to it the email address
+            description: Pregister an account by sending a token to it the respective email address.
             summary: Pre-register
             tags:
                 - Miscellaneous
@@ -2530,7 +2530,7 @@ paths:
 
     /login:
         post:
-            description: Login to a user account by using the ApiKey
+            description: Login to a user account by using a username and password
             summary: Login
             tags:
                 - Miscellaneous
