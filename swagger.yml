@@ -3163,7 +3163,7 @@ paths:
     /shopify/fetch:
         get:
             description: Fetch Products from Shopify
-            summary: Shopify Products
+            summary: Fetch Shopify Products
             tags:
                 - Shopify
             produces:
@@ -3183,6 +3183,64 @@ paths:
                         $ref: "#/definitions/error"
                 409:
                     description: Conflict
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+    
+    /shopify/webhook:
+        post:
+            description: Create a new webhook on Shopify
+            summary: Create Shopify Webhook
+            tags:
+                - Shopify
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/message"
+                201:
+                    description: Status Created
+                    schema:
+                        $ref: "#/definitions/message"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
+                    schema:
+                        $ref: "#/definitions/error"
+                500:
+                    description: Internal Server Error
+                    schema:
+                        $ref: "#/definitions/error"
+            security:
+                - api_key: []
+        delete:
+            description: Delete a Shopify Webhook
+            summary: Delete Shopify Webhook
+            tags:
+                - Shopify
+            produces:
+                - application/json
+            responses:
+                200:
+                    description: Status OK
+                    schema:
+                        $ref: "#/definitions/message"
+                401:
+                    description: Unauthorized
+                    schema:
+                        $ref: "#/definitions/error"
+                404:
+                    description: Not Found
                     schema:
                         $ref: "#/definitions/error"
                 500:
