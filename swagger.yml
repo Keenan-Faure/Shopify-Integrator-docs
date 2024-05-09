@@ -659,7 +659,7 @@ definitions:
                         format: "null"
                     city:
                         type: string
-                    zip:
+                    province_code:
                         type: string
                     province:
                         type: string
@@ -680,8 +680,6 @@ definitions:
                     name:
                         type: string
                     country_code:
-                        type: string
-                    province_code:
                         type: string
             customer:
                 type: object
@@ -779,8 +777,6 @@ definitions:
                             province:
                                 type: string
                             country:
-                                type: string
-                            zip:
                                 type: string
                             phone:
                                 type: string
@@ -1056,7 +1052,7 @@ definitions:
             object:
                 type: array
                 items:
-                    $ref: "#/definitions/address"
+                    $ref: "#/definitions/request_order"
 
     response_order:
         $ref: "#/definitions/order"
@@ -1134,7 +1130,7 @@ definitions:
                 minLength: 1
             phone:
                 type: string
-            address:
+            default_address:
                 type: array
                 items:
                     $ref: "#/definitions/address"
@@ -1471,7 +1467,7 @@ definitions:
                                     type: string
                                 city:
                                     type: string
-                                zip:
+                                province_code:
                                     type: string
                                 province:
                                     type: string
@@ -1486,8 +1482,6 @@ definitions:
                                 country_code:
                                     type: string
                                 country_name:
-                                    type: string
-                                province_code:
                                     type: string
                                 legacy:
                                     type: boolean
@@ -3191,7 +3185,7 @@ paths:
                         $ref: "#/definitions/error"
             security:
                 - api_key: []
-    
+
     /shopify/webhook:
         post:
             description: Create a new webhook on Shopify
