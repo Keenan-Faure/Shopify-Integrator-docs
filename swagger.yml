@@ -1131,7 +1131,7 @@ definitions:
             phone:
                 type: string
             default_address:
-                type: object
+                type: array
                 items:
                     $ref: "#/definitions/address"
 
