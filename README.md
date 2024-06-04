@@ -20,5 +20,5 @@ Note that this is installed automatically in the shell `install.sh` script of th
 3. Run the command below:
 
 ```bash
-swagger serve ./swagger.yml --port=8080 --base-path=/api/ --no-open
+swagger serve ./swagger.yml --port=8080 --no-open
 ```
